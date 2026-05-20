@@ -1,0 +1,164 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-chaos-black text-chaos-white font-inter;
+  }
+}
+
+@layer utilities {
+  .text-glow-red {
+    text-shadow: 0 0 10px #e63946, 0 0 20px #e63946, 0 0 40px #e63946;
+  }
+  .text-glow-purple {
+    text-shadow: 0 0 10px #5865f2, 0 0 20px #5865f2;
+  }
+  .text-glow-blue {
+    text-shadow: 0 0 10px #1d9bf0, 0 0 20px #1d9bf0;
+  }
+  .box-glow-red {
+    box-shadow: 0 0 10px #e63946, 0 0 30px rgba(230, 57, 70, 0.3);
+  }
+  .box-glow-purple {
+    box-shadow: 0 0 10px #5865f2, 0 0 30px rgba(88, 101, 242, 0.3);
+  }
+  .glitch-text {
+    position: relative;
+  }
+  .glitch-text::before,
+  .glitch-text::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+  .glitch-text::before {
+    color: #e63946;
+    animation: glitch-1 2s infinite linear;
+    clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%);
+    transform: translate(-2px);
+  }
+  .glitch-text::after {
+    color: #5865f2;
+    animation: glitch-2 2s infinite linear;
+    clip-path: polygon(0 55%, 100% 55%, 100% 100%, 0 100%);
+    transform: translate(2px);
+  }
+  .scanline-effect {
+    position: relative;
+    overflow: hidden;
+  }
+  .scanline-effect::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: rgba(230, 57, 70, 0.15);
+    animation: scanline 8s linear infinite;
+    pointer-events: none;
+    will-change: transform;
+  }
+  .corkboard {
+    background-color: #3d2b1f;
+    background-image:
+      repeating-linear-gradient(
+        45deg,
+        transparent,
+        transparent 10px,
+        rgba(0,0,0,0.05) 10px,
+        rgba(0,0,0,0.05) 20px
+      ),
+      radial-gradient(circle at 20% 80%, #4a3225 0%, #3d2b1f 60%);
+  }
+}
+
+@keyframes glitch-1 {
+  0%, 100% { transform: translate(-2px); opacity: 0; }
+  20% { transform: translate(-2px); opacity: 0.8; }
+  21% { transform: translate(2px); opacity: 0; }
+  40% { transform: translate(2px, -2px); opacity: 0.8; }
+  41% { opacity: 0; }
+}
+@keyframes glitch-2 {
+  0%, 100% { transform: translate(2px); opacity: 0; }
+  60% { transform: translate(2px); opacity: 0.8; }
+  61% { transform: translate(-2px); opacity: 0; }
+  80% { transform: translate(-2px, 2px); opacity: 0.8; }
+  81% { opacity: 0; }
+}
+
+/* Discord typing dots */
+.typing-dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #8899a6;
+  animation: typingBounce 1.4s ease-in-out infinite;
+}
+.typing-dot:nth-child(2) { animation-delay: 0.2s; }
+.typing-dot:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes typingBounce {
+  0%, 100% { transform: translateY(0); opacity: 0.4; }
+  50% { transform: translateY(-6px); opacity: 1; }
+}
+
+/* Equalizer bars */
+.eq-bar {
+  display: inline-block;
+  width: 4px;
+  background: #1db954;
+  border-radius: 2px;
+  animation: equalize 0.8s ease-in-out infinite alternate;
+}
+.eq-bar:nth-child(2) { animation-delay: 0.1s; animation-duration: 0.6s; }
+.eq-bar:nth-child(3) { animation-delay: 0.2s; animation-duration: 1s; }
+.eq-bar:nth-child(4) { animation-delay: 0.3s; animation-duration: 0.7s; }
+.eq-bar:nth-child(5) { animation-delay: 0.4s; animation-duration: 0.9s; }
+
+@keyframes equalize {
+  0% { height: 4px; }
+  100% { height: 32px; }
+}
+
+/* Cursor */
+#custom-cursor {
+  width: 12px;
+  height: 12px;
+  background: #e63946;
+  border-radius: 50%;
+  position: fixed;
+  pointer-events: none;
+  z-index: 99999;
+  transition: transform 0.1s ease;
+  mix-blend-mode: difference;
+  box-shadow: 0 0 10px #e63946, 0 0 20px rgba(230,57,70,0.5);
+}
+#cursor-trail {
+  width: 30px;
+  height: 30px;
+  border: 1px solid rgba(230, 57, 70, 0.4);
+  border-radius: 50%;
+  position: fixed;
+  pointer-events: none;
+  z-index: 99998;
+  transition: all 0.15s ease;
+}
+
+/* Reddit styles */
+.reddit-post {
+  background: #1a1a1b;
+  border: 1px solid #2d2d2d;
+}
+
+/* Noise texture */
+.noise-bg {
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
+}
